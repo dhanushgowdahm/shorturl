@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>url shortner</h1>
+    <div>
+        <form method="POST" action="/url">
+            <label>enter your original url</label>
+            <input
+            type="text"
+            name="url"
+            placeholder="https://example.com"
+            />
+            <br>
+            <br>
+            <button type="submit"></type>generate url</button>
+        </form>
+        <% if (locals.id) { %>
+         <p>URL Generated:http://localhost/url/<%= id %> </p>
+        <% } %>
+    </div>
+    <div>
+        <% if (locals.urls) { %>
+         <table>
+            <thead>
+                
+                <th>S. no</th>
+                <th>ShortID</th>
+                <th>redirect url</th>
+                <th>clicks</th>
+               <tbody>
+                
+                    <% urls.forEach((url,index) => { %>
+                    <tr>
+                     <td><%= index + 1 %></td>
+                     <td><%= url.shortId %></td>
+                     <td><%= url.redirectURL %></td>
+                     <td><%= url.visitHistory.length %></td>
+                     </tr>
+                
+                    <% }) %>
+               </tbody> 
+            </thead>
+         </table>
+        <% } %>
+    </div>
+    
+
+
+    
+</body>
+</html>
+
+
+
+

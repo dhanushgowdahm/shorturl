@@ -1,0 +1,30 @@
+url shortner
+
+design a url shortner service that takes in a valid url and returns a shortned url,. 
+redirecting the user to the previosly provided url
+
+
+rutes.
+POST /URL -Generates a new short url and returns the shortened url
+in the format example.com/random-id
+
+GET /:id - redirects the user to the original url
+
+
+GET/URLanalytics/:id -returns the clicks for the provided
+short id
+
+
+
+
+
+
+
+
+
+
+    <h1>hey1 from server</h1>
+<% urls.forEach(url => { %>
+ <li><%= url.shortId %></li>
+<% }) %>
+
