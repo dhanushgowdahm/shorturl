@@ -1,11 +1,15 @@
 const express = require("express");
 const path  = require('path');
+const cookieParser = require('cookie-parser')
 
 const {connectToMongoDB } = require("./connect")
+const { restrictToLoggedinUserOnly, checkAuth }= require("./middleware/auth")
+
+const URL =require("./models/url")
 
 const urlRoute = require("./routes/url")
 const staticRoute = require("./routes/staticRouter")
-const URL =require("./models/url")
+const userRoute =require("./routes/user")
 
 const app = express();
 
@@ -21,6 +25,10 @@ app.set("views", path.resolve("views"));
 
 app.use(express.json()); //middleware which parse incomming request
 app.use(express.urlencoded({extended:false})); //it supports both json and form
+app.use(cookieParser());
+
+
+
 app.use("/test", async(req,res)=>{
     const allUrls = await URL.find({});
    
@@ -30,9 +38,9 @@ app.use("/test", async(req,res)=>{
     
 });
 
-app.use("/url",urlRoute)
-
-app.use("/",staticRoute);
+app.use("/url",restrictToLoggedinUserOnly,urlRoute);
+app.use("/user", userRoute);
+app.use("/",checkAuth,staticRoute);
 
 app.get('/url/:shortId',async(req, res)=> {
     const shortId = req.params.shortId;
